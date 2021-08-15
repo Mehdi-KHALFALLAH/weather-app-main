@@ -42,6 +42,7 @@ const DateTime = ({current,  timezone}) => {
         "Lobster-Regular": require("../assets/fonts/Lobster-Regular.ttf"),
         "Roboto-LightItalic": require("../assets/fonts/Roboto-LightItalic.ttf"),
         "Roboto-Thin" : require("../assets/fonts/Roboto-Thin.ttf"),
+        "Roboto-Bold" : require("../assets/fonts/Roboto-Bold.ttf")
       });
       if (!fontsLoaded) {
         return <AppLoading />;
@@ -56,7 +57,7 @@ const DateTime = ({current,  timezone}) => {
                    <Text style={styles.heading}>{time}</Text>
                    <Card style style = {{marginLeft:0,marginRight:0, backgroundColor : "black", } }>
         <Card.Cover source={{ uri: 'https://picsum.photos/700?'+ new Date().getTime() }}
-        style = {{marginLeft:0,marginRight:0, backgroundColor: " black",borderRadius:15,height:350}}/>
+        style = {{marginLeft:0,marginRight:0, backgroundColor: " black",borderRadius:15,height:350}} />
        
         
         
@@ -90,14 +91,14 @@ const styles = StyleSheet.create({
         padding: 15
     },
     heading: {
-        fontFamily: "Roboto-Thin",
-        fontSize: 30,
+        fontFamily: "Roboto-Bold",
+        fontSize: 25,
         color:'white',
         fontWeight: '100'
     },
     subheading: {
         fontFamily: "Roboto-Thin",
-        fontSize: 25,
+        fontSize: 15,
         color: '#eee',
         fontWeight: '300'
     },
@@ -117,7 +118,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#18181b99",
         borderRadius: 10,
         padding: 10,
-        marginTop: 10
+        marginTop: 10,
+        
     }, 
     weatherItem: {
         flexDirection: 'row',
