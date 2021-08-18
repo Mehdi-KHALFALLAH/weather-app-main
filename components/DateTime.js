@@ -30,7 +30,7 @@ const DateTime = ({current,  timezone}) => {
             const hour = time.getHours();
             const hoursIn12HrFormat = hour >= 13 ? hour %12: hour
             const minutes = time.getMinutes();
-            const ampm = hour >=12 ? 'PM' : 'AM'
+            const ampm = hour >=12 ? ' PM' : ' AM'
         
             setTime((hoursIn12HrFormat < 10? '0'+hoursIn12HrFormat : hoursIn12HrFormat) + ':' + (minutes < 10? '0'+minutes: minutes) +ampm) 
         
@@ -42,7 +42,8 @@ const DateTime = ({current,  timezone}) => {
         "Lobster-Regular": require("../assets/fonts/Lobster-Regular.ttf"),
         "Roboto-LightItalic": require("../assets/fonts/Roboto-LightItalic.ttf"),
         "Roboto-Thin" : require("../assets/fonts/Roboto-Thin.ttf"),
-        "Roboto-Bold" : require("../assets/fonts/Roboto-Bold.ttf")
+        "Roboto-Bold" : require("../assets/fonts/Roboto-Bold.ttf"),
+        "Roboto-Regular" : require  ("../assets/fonts/Roboto-Regular.ttf")
       });
       if (!fontsLoaded) {
         return <AppLoading />;
@@ -91,13 +92,13 @@ const styles = StyleSheet.create({
         padding: 15
     },
     heading: {
-        fontFamily: "Roboto-Bold",
-        fontSize: 25,
+        fontFamily: "Roboto-Regular",
+        fontSize: 22,
         color:'white',
         fontWeight: '100'
     },
     subheading: {
-        fontFamily: "Roboto-Thin",
+        fontFamily: "Roboto-Regular",
         fontSize: 15,
         color: '#eee',
         fontWeight: '300'
@@ -129,7 +130,15 @@ const styles = StyleSheet.create({
         color:'#eee',
         fontSize: 14,
         fontWeight: '100'
+    },
+    timezone : {
+
+        fontFamily: "Roboto-Bold",
+        fontSize: 25,
+        color:'white',
+        fontWeight: '100'
     }
+    
 })
 
 export default DateTime

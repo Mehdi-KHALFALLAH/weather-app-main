@@ -1,13 +1,22 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import {
+  
+  PacmanIndicator,
+  
+} from 'react-native-indicators';
+
+import React, { useEffect, useState } from "react";
+import {ActivityIndicator,
   StyleSheet,
   Text,
   View,
   ImageBackground,
   ScrollView,
   FlatList,
-  Image,
+  Image, animated,SafeAreaView
 } from "react-native";
 import * as Location from "expo-location";
 import moment from "moment-timezone";
@@ -17,7 +26,9 @@ import WeatherScroll from "./components/WeatherScroll";
 const API_KEY = "49cc8c821cd2aff9af04c9f98c36eb74";
 const img = require("./assets/image.png");
 export default function App() {
+  
   const [data, setData] = useState({});
+  
 
   useEffect(() => {
     (async () => {
@@ -44,9 +55,16 @@ export default function App() {
         });
     }
   };
-
-  return (
-    <ScrollView style={styles.container}>
+  if (!data) {
+    return <SafeAreaView style={styles.loading}>
+     <PacmanIndicator color='rgb(236,110,76)'  />
+      </SafeAreaView>;
+  }
+  function HomeScreen() {
+    return (
+      <View style={{ flex: 1 }}>
+        <ScrollView style={styles.container}>
+      
       <View style={styles.container}>
         <DateTime current={data.current} timezone={data.timezone} />
         <WeatherScroll weatherData={data.daily} />
@@ -60,16 +78,18 @@ export default function App() {
             var dt = new Date(hour.item.dt * 1000);
             return (
               <View style={styles.hour}>
-                <Text style={styles.temp}>
-                  {moment(hour.item.dt * 1000).format("hA")}
-                </Text>
+                
                 <Text style={styles.temp}>{Math.round(hour.item.temp)}°C</Text>
                 <Image
                   style={styles.smallIcon}
                   source={{
                     uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
                   }}
+                  
                 />
+                <Text style={styles.temp}>
+                  {moment(hour.item.dt * 1000).format("hA")}
+                </Text>
                 <Text style={styles.temp}>{weather.description}</Text>
               </View>
             );
@@ -106,6 +126,30 @@ export default function App() {
         />
       </View>
     </ScrollView>
+      </View>
+    );
+  }
+  
+  function SettingsScreen() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',flexDirection:'row' }}>
+        <Text>Settings!</Text>
+      </View>
+    );
+  }
+  
+  const Tab = createMaterialTopTabNavigator();
+  return (
+    
+    <NavigationContainer>
+     
+     <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        
+      </Tab.Navigator>
+    
+    
+    </NavigationContainer>
   );
 }
 
@@ -143,4 +187,11 @@ const styles = StyleSheet.create({
     fontWeight: "100",
     textAlign: "center",
   },
+  loading: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  
 });
