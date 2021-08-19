@@ -1,22 +1,22 @@
 import { StatusBar } from "expo-status-bar";
 
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import {
-  
-  PacmanIndicator,
-  
-} from 'react-native-indicators';
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { PacmanIndicator } from "react-native-indicators";
+import Constants from 'expo-constants'
 
 import React, { useEffect, useState } from "react";
-import {ActivityIndicator,
+import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   View,
   ImageBackground,
   ScrollView,
   FlatList,
-  Image, animated,SafeAreaView
+  Image,
+  animated,
+  SafeAreaView,
 } from "react-native";
 import * as Location from "expo-location";
 import moment from "moment-timezone";
@@ -26,9 +26,7 @@ import WeatherScroll from "./components/WeatherScroll";
 const API_KEY = "49cc8c821cd2aff9af04c9f98c36eb74";
 const img = require("./assets/image.png");
 export default function App() {
-  
   const [data, setData] = useState({});
-  
 
   useEffect(() => {
     (async () => {
@@ -56,99 +54,116 @@ export default function App() {
     }
   };
   if (!data) {
-    return <SafeAreaView style={styles.loading}>
-     <PacmanIndicator color='rgb(236,110,76)'  />
-      </SafeAreaView>;
+    return (
+      <SafeAreaView style={styles.loading}>
+        <PacmanIndicator color="rgb(236,110,76)" />
+      </SafeAreaView>
+    );
   }
   function HomeScreen() {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.container}>
-      
-      <View style={styles.container}>
-        <DateTime current={data.current} timezone={data.timezone} />
-        <WeatherScroll weatherData={data.daily} />
+          <View style={styles.container}>
+            <DateTime current={data.current} timezone={data.timezone} />
+            <WeatherScroll weatherData={data.daily} />
 
-        <FlatList
-          horizontal
-          data={data.hourly}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={(hour) => {
-            const weather = hour.item.weather[0];
-            var dt = new Date(hour.item.dt * 1000);
-            return (
-              <View style={styles.hour}>
-                
-                <Text style={styles.temp}>{Math.round(hour.item.temp)}°C</Text>
-                <Image
-                  style={styles.smallIcon}
-                  source={{
-                    uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
-                  }}
-                  
-                />
-                <Text style={styles.temp}>
-                  {moment(hour.item.dt * 1000).format("hA")}
-                </Text>
-                <Text style={styles.temp}>{weather.description}</Text>
-              </View>
-            );
-          }}
-        />
-        <FlatList
-          horizontal
-          data={data.daily}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={(daily) => {
-            const weather = daily.item.weather[0];
+            <FlatList
+              horizontal
+              data={data.hourly}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={(hour) => {
+                const weather = hour.item.weather[0];
+                var dt = new Date(hour.item.dt * 1000);
+                return (
+                  <View style={styles.hour}>
+                    <Text style={styles.temp}>
+                      {Math.round(hour.item.temp)}°C
+                    </Text>
+                    <Image
+                      style={styles.smallIcon}
+                      source={{
+                        uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
+                      }}
+                    />
+                    <Text style={styles.temp}>
+                      {moment(hour.item.dt * 1000).format("hA")}
+                    </Text>
+                    <Text style={styles.temp}>{weather.description}</Text>
+                  </View>
+                );
+              }}
+            />
+            <FlatList
+              horizontal
+              data={data.daily}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={(daily) => {
+                const weather = daily.item.weather[0];
 
-            return (
-              <View style={styles.hour}>
-                <Text style={styles.temp}>
-                  {moment(daily.item.dt * 1000).format("dddd MMM")}
-                </Text>
-                <Text style={styles.temp}>
-                  {Math.round(daily.item.temp.day)}°C
-                </Text>
-                <Text style={styles.temp}>
-                  {Math.round(daily.item.temp.night)}°C
-                </Text>
-                <Image
-                  style={styles.smallIcon}
-                  source={{
-                    uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
-                  }}
-                />
-                <Text style={styles.temp}>{weather.description}</Text>
-              </View>
-            );
-          }}
-        />
-      </View>
-    </ScrollView>
+                return (
+                  <View style={styles.hour}>
+                    <Text style={styles.temp}>
+                      {moment(daily.item.dt * 1000).format("dddd MMM")}
+                    </Text>
+                    <Text style={styles.temp}>
+                      {Math.round(daily.item.temp.day)}°C
+                    </Text>
+                    <Text style={styles.temp}>
+                      {Math.round(daily.item.temp.night)}°C
+                    </Text>
+                    <Image
+                      style={styles.smallIcon}
+                      source={{
+                        uri: `http://openweathermap.org/img/wn/${weather.icon}@4x.png`,
+                      }}
+                    />
+                    <Text style={styles.temp}>{weather.description}</Text>
+                  </View>
+                );
+              }}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }
-  
+
   function SettingsScreen() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',flexDirection:'row' }}>
-        <Text>Settings!</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "row",
+        }}
+      >
+        <Text>Settinguihuihs!</Text>
       </View>
     );
   }
-  
+
   const Tab = createMaterialTopTabNavigator();
   return (
+    <NavigationContainer >
+      <Tab.Navigator style={{ marginTop: Constants.statusBarHeight  }} tabBarOptions={{activeTintColor : "rgb(236,110,76)",pressColor : "rgb(236,110,76)",
+   indicatorStyle: {
     
-    <NavigationContainer>
+    
+    backgroundColor: 'rgb(236,110,76)',
+    
+    },
+    style: {
      
-     <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
+     
+      backgroundColor: "black",
+  },
+}}>
         
+        <Tab.Screen name="Home" component={HomeScreen}  />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
-    
-    
     </NavigationContainer>
   );
 }
@@ -189,9 +204,8 @@ const styles = StyleSheet.create({
   },
   loading: {
     flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  
 });
