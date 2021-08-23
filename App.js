@@ -3,8 +3,9 @@ import { StatusBar } from "expo-status-bar";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { PacmanIndicator } from "react-native-indicators";
-import Constants from 'expo-constants'
-
+import Constants from "expo-constants";
+import TopBar from "./components/TopBar";
+import Navigator from './routes/drawer';
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -57,9 +58,11 @@ export default function App() {
     return (
       <SafeAreaView style={styles.loading}>
         <PacmanIndicator color="rgb(236,110,76)" />
+        <View style={styles.statusBar} />
       </SafeAreaView>
     );
   }
+
   function HomeScreen() {
     return (
       <View style={{ flex: 1 }}>
@@ -146,24 +149,27 @@ export default function App() {
 
   const Tab = createMaterialTopTabNavigator();
   return (
-    <NavigationContainer >
-      <Tab.Navigator style={{ marginTop: Constants.statusBarHeight  }} tabBarOptions={{activeTintColor : "rgb(236,110,76)",pressColor : "rgb(236,110,76)",
-   indicatorStyle: {
     
-    
-    backgroundColor: 'rgb(236,110,76)',
-    
-    },
-    style: {
-     
-     
-      backgroundColor: "black",
-  },
-}}>
+    <NavigationContainer>
+       <Navigator />
+      <Tab.Navigator
+        style={{ marginTop: Constants.statusBarHeight }}
+        tabBarOptions={{
+          activeTintColor: "rgb(236,110,76)",
+          pressColor: "rgb(236,110,76)",
+          indicatorStyle: {
+            backgroundColor: "rgb(236,110,76)",
+          },
+          style: {
+            backgroundColor: "black",
+          },
+        }}
+      >
         
-        <Tab.Screen name="Home" component={HomeScreen}  />
+        <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
+      
     </NavigationContainer>
   );
 }
@@ -207,5 +213,9 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
+  },
+  statusBar: {
+    backgroundColor: "#C2185B",
+    height: Constants.statusBarHeight,
   },
 });
