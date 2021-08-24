@@ -12,11 +12,10 @@ const RootDrawerNavigator = createDrawerNavigator({
   },
   About: {
     screen: AboutStack,
-  },
+  }, 
+  
+  
  
-},  {
-    drawerPosition: "right",
-    
-  }, );
+});
 
 export default createAppContainer(RootDrawerNavigator);

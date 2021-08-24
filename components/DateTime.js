@@ -95,7 +95,12 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto-Regular",
         fontSize: 22,
         color:'white',
-        fontWeight: '100'
+        fontWeight: '100',
+        flex : 1,
+        justifyContent : 'space-around',
+        
+        flexDirection: 'row'
+
     },
     subheading: {
         fontFamily: "Roboto-Regular",

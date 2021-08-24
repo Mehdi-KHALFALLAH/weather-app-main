@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     height: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    
    
     
     
