@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import RNLocation from 'react-native-location';
+import ActionButton from 'react-native-circular-action-menu';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   StyleSheet,
   View,
@@ -84,6 +85,7 @@ export default function Home({ navigation }) {
   }
 
   return (
+    
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
         <View style={styles.container}>
@@ -145,8 +147,11 @@ export default function Home({ navigation }) {
               );
             }}
           />
+        
         </View>
+        
       </ScrollView>
+     
     </View>
   );
 }
