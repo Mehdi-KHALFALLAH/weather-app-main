@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TextInput, ActivityIndicator, shadow } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Header({ title, navigation }) {
 
