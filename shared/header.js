@@ -6,14 +6,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 export default function Header({ title, navigation }) {
 
-  const openMenu = () => {
-    navigation.openDrawer();
-  }
+  
 
   return (
     <View style = {styles.header}>
           
-          <MaterialIcons name='menu' size={28} onPress={openMenu}  style={styles.icon} />
+          <MaterialIcons name='menu' size={28}   style={styles.icon} />
           <Text style={styles.headerText}>{title}</Text> 
        
      

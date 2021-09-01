@@ -4,7 +4,7 @@ import { AppLoading } from 'expo';
 import Navigator from './routes/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
-import StackTabs from "./shared/tabs"
+import Tabs from "./shared/tabs"
  
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
     return (
       <NavigationContainer>
 
-        <StackTabs />
+        <Tabs />
        
       </NavigationContainer>
       

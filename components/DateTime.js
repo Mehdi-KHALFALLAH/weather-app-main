@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
         flex : 1,
         justifyContent : 'space-around',
         
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingBottom: 10,
 
     },
     subheading: {

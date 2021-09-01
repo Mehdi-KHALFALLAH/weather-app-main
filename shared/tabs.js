@@ -15,18 +15,24 @@ import AboutScreen from "../screens/about";
 import Navigator from "../routes/drawer";
 import { BlurView } from "expo-blur";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import DrawerNavigator from '../drawer/DrawerNavigator' ;
+import StackNavigator from '../Stack/StackNavigator'
 
 
 const Tab = createBottomTabNavigator();
-const openMenu = () => {
-  navigation.openDrawer();
-};
+
 
 const Tabs = () => {
   return (
     <Tab.Navigator
-      screenOptions={{
-        tabBarStyle: { position: "absolute" },
+    tabBarOptions = {{
+
+      showLabel : false ,
+    }}
+   
+      screenOptions={{ 
+        showLabel: false,
         tabBarActiveTintColor: "rgb(236,110,76)",
 
         borderRadius: 20,
@@ -37,40 +43,40 @@ const Tabs = () => {
         headerTitleStyle: {
           fontSize: 35,
         },
-        tabBarBackground: () => (
-          <BlurView
-            tint="dark"
-            intensity={100}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
+        
       }}
     >
-      <Tab.Screen
-      
-        name="WeatherGo"
-        component={HomeScreen}
-        options={{
-          tabBarBadge : 1,
-          headerShown: true,
-          tabBarLabel: "Home",
+       <Tab.Screen  name="Weather" component={DrawerNavigator}  options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
-          ),
-          headerLeft: () => (
-            <MaterialIcons
-              name="menu"
-              size={28}
-              onPress={openMenu}
-              style={styles.icon}
+            <MaterialCommunityIcons
+              name="home"
+              color={color}
+              size={size}
             />
           ),
+          tabBarBadge : 1,
+          headerShown: false,
+          
+          
+          
+          
+          headerRight: () => (
+            
+              <TouchableOpacity>
+          <Text onPress={() => console.warn('hello')} style={styles.hello}>Hello</Text>
+        </TouchableOpacity>
+        
+        
+      ),
         }}
       />
+      
       <Tab.Screen
         name="About"
         component={AboutScreen}
+        
         options={{
+          
           headerShown: true,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
@@ -83,7 +89,7 @@ const Tabs = () => {
             <MaterialIcons
               name="info"
               size={28}
-              onPress={openMenu}
+              
               style={styles.icon}
             />
           ),
@@ -96,6 +102,13 @@ const Tabs = () => {
 const styles = StyleSheet.create({
   icon: {
     color: "rgb(236,110,76)",
+    paddingLeft : 15,
+  },
+  hello: {
+    color: "rgb(236,110,76)",
+   
+    paddingRight : 16,
+    
   },
 });
 export default Tabs;

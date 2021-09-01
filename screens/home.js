@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import ActionButton from 'react-native-circular-action-menu';
-import Icon from 'react-native-vector-icons/Ionicons';
+import ActionButton from "react-native-circular-action-menu";
+import Icon from "react-native-vector-icons/Ionicons";
 import { CommonActions } from "@react-navigation/native";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-  StyleSheet,Dimensions,
+  StyleSheet,
+  Dimensions,
   View,
   Text,
   TouchableOpacity,
@@ -40,35 +41,20 @@ const API_KEY = "49cc8c821cd2aff9af04c9f98c36eb74";
 const img = require("../assets/image.png");
 
 export default function Home({ navigation }) {
-
-  
   const [data, setData] = useState({});
 
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       var loc = await Location.hasServicesEnabledAsync();
-      
+
       if (status == "granted") {
         fetchDataFromApi("35.8288175", "10.6405392");
         return;
       }
 
-      try {
-        location = await Location.getCurrentPositionAsync({
-            accuracy: Location.Accuracy.BestForNavigation,
-            LocationActivityType: Location.ActivityType.OtherNavigation,
-            maximumAge: 5000,
-            timeout: 15000,
-        });
-    } catch {
-        location = await Location.getLastKnownPositionAsync({
-            accuracy: Location.Accuracy.BestForNavigation,
-            LocationActivityType: Location.ActivityType.OtherNavigation,
-            maxAge: 5000,
-            timeout: 15000,
-        });
-    }
+      let location = await Location.getCurrentPositionAsync({});
+
       console.log(location);
       fetchDataFromApi(location.coords.latitude, location.coords.longitude);
     })();
@@ -85,7 +71,6 @@ export default function Home({ navigation }) {
           setData(data);
         })
         .catch((error) => {
-          
           console.log(error);
         });
     }
@@ -100,15 +85,14 @@ export default function Home({ navigation }) {
   }
 
   return (
-    <ScrollView style={styles.container}  >
-    <View style={{ flex: 1 }}>
-     
+    <ScrollView style={styles.container}>
+      <View style={{ flex: 1 }}>
         <View style={styles.container}>
           <DateTime current={data.current} timezone={data.timezone} />
           <WeatherScroll weatherData={data.daily} />
 
           <FlatList
-          showsHorizontalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             horizontal
             data={data.hourly}
             keyExtractor={(item, index) => index.toString()}
@@ -135,7 +119,7 @@ export default function Home({ navigation }) {
             }}
           />
           <FlatList
-          showsHorizontalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             horizontal
             data={data.daily}
             keyExtractor={(item, index) => index.toString()}
@@ -164,12 +148,8 @@ export default function Home({ navigation }) {
               );
             }}
           />
-        
         </View>
-        
-     
-     
-    </View>
+      </View>
     </ScrollView>
   );
 }

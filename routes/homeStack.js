@@ -11,7 +11,9 @@ const screens = {
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => <Header title='WeatherGo' navigation={navigation} />
+        
       }
+      
     },
   },
   
