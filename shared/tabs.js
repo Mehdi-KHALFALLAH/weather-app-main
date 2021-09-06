@@ -85,14 +85,7 @@ const Tabs = () => {
               size={size}
             />
           ),
-          headerLeft: () => (
-            <MaterialIcons
-              name="info"
-              size={28}
-              
-              style={styles.icon}
-            />
-          ),
+         
         }}
       />
     </Tab.Navigator>

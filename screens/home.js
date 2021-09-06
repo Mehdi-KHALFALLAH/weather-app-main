@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ActionButton from "react-native-circular-action-menu";
 import Icon from "react-native-vector-icons/Ionicons";
 import { CommonActions } from "@react-navigation/native";
-
+import { useSpring, animated } from '@react-spring/native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   StyleSheet,
@@ -13,7 +13,7 @@ import {
   FlatList,
   Modal,
   TouchableWithoutFeedback,
-  Keyboard,
+  Keyboard, ViewPropTypes
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -24,6 +24,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { PacmanIndicator } from "react-native-indicators";
 import Constants from "expo-constants";
 import Navigator from "../routes/drawer";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 import {
   ActivityIndicator,
   ImageBackground,
@@ -42,18 +44,25 @@ const img = require("../assets/image.png");
 
 export default function Home({ navigation }) {
   const [data, setData] = useState({});
+  let [fontsLoaded] = useFonts({
+    "Lobster-Regular": require("../assets/fonts/Lobster-Regular.ttf"),
+    "Roboto-LightItalic": require("../assets/fonts/Roboto-LightItalic.ttf"),
+    "Roboto-Thin": require("../assets/fonts/Roboto-Thin.ttf"),
+    "Roboto-Bold": require("../assets/fonts/Roboto-Bold.ttf"),
+    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
+  });
 
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       var loc = await Location.hasServicesEnabledAsync();
 
-      if (status == "granted") {
+      if (status == "!granted") {
         fetchDataFromApi("35.8288175", "10.6405392");
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({ accuracy: 1 });
 
       console.log(location);
       fetchDataFromApi(location.coords.latitude, location.coords.longitude);
@@ -88,10 +97,18 @@ export default function Home({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
-          <DateTime current={data.current} timezone={data.timezone} />
+          
+          <DateTime
+            current={data.current}
+            timezone={data.timezone}
+            data={data}
+          />
+          
           <WeatherScroll weatherData={data.daily} />
+<View style = {styles.flatList1}>
+          <Text style={styles.flatListHeader}>HOURLY</Text>
 
-          <FlatList
+          <FlatList style = {{marginLeft:0,marginRight:0, backgroundColor : "black", } }
             showsHorizontalScrollIndicator={false}
             horizontal
             data={data.hourly}
@@ -118,6 +135,8 @@ export default function Home({ navigation }) {
               );
             }}
           />
+          </View>
+          <Text style={styles.flatListHeader}>WEEKLY</Text>
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
@@ -198,6 +217,7 @@ const styles = StyleSheet.create({
   hour: {
     padding: 6,
     alignItems: "center",
+   
   },
   temp: {
     fontSize: 14,
@@ -215,4 +235,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#C2185B",
     height: Constants.statusBarHeight,
   },
+  flatListHeader: {
+    color: "rgb(236,110,76)",
+    fontFamily: "Roboto-Bold",
+    marginLeft: 10,
+  },
+  flatList1: {
+flex : 1,
+marginBottom: 20,
+marginTop : 10,
+
+
+  }
 });

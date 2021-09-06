@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, FlatList,Image} from 'react-native';
 import moment from 'moment-timezone'
 import { Card } from "react-native-paper";
 import { useFonts } from "expo-font";
@@ -10,14 +10,14 @@ const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUGUST', 'SEP'
 
 const WeatherItem = ({title, value, unit}) => {
     return(
-        <View style={styles.weatherItem}>
+        <View style={styles.weatherItem}> 
             <Text style={styles.weatherItemTitle}>{title}</Text>
             <Text style={styles.weatherItemTitle}>{value}{unit}</Text>
         </View>
     )
 }
 
-const DateTime = ({current,  timezone}) => {
+const DateTime = ({current,  timezone, data}) => {
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
 
@@ -48,7 +48,8 @@ const DateTime = ({current,  timezone}) => {
       if (!fontsLoaded) {
         return <AppLoading />;
       }
-    return (
+    return ( 
+        
         <View style={styles.container}>  
         
            <View>
@@ -71,16 +72,26 @@ const DateTime = ({current,  timezone}) => {
                <Text style={styles.timezone}>{timezone}</Text>
                
            </View>
+           
+               </View>
+               <View> 
+               <Text style={styles.flatListHeader}>DETAILS</Text>
                </View>
                <View style={styles.weatherItemContainer}>
+                   
+                   
                     <WeatherItem title="Humidity" value={current? current.humidity : ""} unit="%"/>
                     <WeatherItem title="Pressure" value={current? current.pressure : ""} unit="hPA"/>
                     <WeatherItem title="Sunrise" value={current? moment.tz(current.sunrise * 1000, timezone ).format('HH:mm'): ""} unit="am"/>
                     <WeatherItem title="Sunset" value={current? moment.tz(current.sunset * 1000, timezone ).format('HH:mm') : ""} unit="pm"/>
+                    
+        
                </View>
+               
            </View>
            
         </View>
+        
     )
 }
 
@@ -142,9 +153,13 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto-Bold",
         fontSize: 25,
         color:'white',
-        fontWeight: '100'
+        fontWeight: '100',
+        
+    },flatListHeader: {
+        color: "rgb(236,110,76)",
+        fontFamily: "Roboto-Bold",
+        marginLeft: 10,
     }
-    
 })
 
 export default DateTime
