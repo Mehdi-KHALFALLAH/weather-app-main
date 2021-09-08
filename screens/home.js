@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
       let { status } = await Location.requestForegroundPermissionsAsync();
       var loc = await Location.hasServicesEnabledAsync();
 
-      if (status == "!granted") {
+      if (status == "granted") {
         fetchDataFromApi("35.8288175", "10.6405392");
         return;
       }
