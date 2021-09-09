@@ -1,8 +1,9 @@
 import React , {useState} from "react";
 import ToggleButton from 'react-native-toggle-element';
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet,Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+
 import {
   useTheme,
   Avatar,
@@ -32,6 +33,7 @@ export function DrawerContent(props) {
                   uri: "https://api.adorable.io/avatars/50/abott@adorable.png",
                 }}
                 size={40}
+                
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
                 <Title style={styles.title}>WeatherGo</Title>
@@ -121,28 +123,51 @@ export function DrawerContent(props) {
        onPress={() =>{} }
        
    />
+   <View style={{ flexDirection: "row", marginTop: 25 }}>
+   
    <ToggleButton
+   
   value={toggleValue}
   onPress={(newState) => setToggleValue(newState)}
+  
   thumbActiveComponent={
-    <Icon name="sun" width="40" height="40" fill={'#3BD2B5'} />
+    <Avatar.Image
+                source={
+                  require('../assets/sun.png') 
+                }
+                size={45}
+                backgroundColor = {"#9ee3fb"}
+              />
   }
   thumbInActiveComponent={
-    <Icon name="night" width="40" height="40" fill={'#03452C'} />
+    <Avatar.Image
+    source={
+      require('../assets/moon.png') 
+    }
+    size={45}
+  />
   }
   trackBar={{
     activeBackgroundColor: '#9ee3fb',
     inActiveBackgroundColor: '#3c4145',
     borderActiveColor: '#86c3d7',
     borderInActiveColor: '#1c1c1c',
-    borderWidth: 5,
+    borderWidth: 3,
     width: 100,
+   
   }}
+  
 />
+<View style={{ marginLeft: 15, flexDirection: "column" }}>
+                <Title style={styles.titleTheme}> Theme</Title>
+               
+              </View>
+</View>
 
    <Drawer.Section title="Preferences">
                         <TouchableRipple onPress={() =>{} }>
                             <View style={styles.preference}>
+                              
                                 <Text>Dark Theme</Text>
                                 <View pointerEvents="none">
                                     <Switch />
@@ -218,4 +243,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
+  titleTheme: {
+    fontSize: 25,
+    marginTop: 10,
+    fontWeight: "bold",
+    color : "rgb(255,222,173)"}
 });
