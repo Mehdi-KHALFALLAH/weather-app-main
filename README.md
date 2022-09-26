@@ -1,9 +1,9 @@
 # Weather App
 
-<p float="left">
-  <img src="./1.jpg" width="200" height = "600"/>
-  <img src="./2.jpg" width="200" height = "600" /> 
-  <img src="./3.jpg" width="200" height = "600" />
+<p  float="left" text-align = "justify">
+  <img src="./1.jpg" width="300" height = "600"/>
+  <img src="./2.jpg" width="300" height = "600" /> 
+  <img src="./3.jpg" width="300" height = "600" />
 </p> 
 
 
