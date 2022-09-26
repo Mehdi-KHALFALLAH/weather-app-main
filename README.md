@@ -1,6 +1,8 @@
 # Weather App
 
-<img src="https://github.com/Mehdi-KHALFALLAH/weather-app-main/assets/1.jpg" width="30%"></img> <img src="https://github.com/Mehdi-KHALFALLAH/weather-app-main/assets/2.jpg" width="30%"></img> <img src="https://github.com/Mehdi-KHALFALLAH/weather-app-main/assets/3.jpg" width="30%"></img>  
+<img src="https://github.com/Mehdi-KHALFALLAH/weather-app-main/assets/1.jpg" width="30%"></img> 
+<img src="https://github.com/Mehdi-KHALFALLAH/weather-app-main/assets/2.jpg" width="30%"></img> 
+<img src="https://github.com/Mehdi-KHALFALLAH/weather-app-main/assets/3.jpg" width="30%"></img>  
 
 
 This is just me trying out React Native for the First time using Expo CLI. 
